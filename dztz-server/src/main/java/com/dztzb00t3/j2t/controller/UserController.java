@@ -16,7 +16,7 @@ import java.util.Map;
  */
 @Slf4j
 @RestController
-@RequestMapping("/api/user/v.1/control")
+@RequestMapping("/user")
 public class UserController {
     @GetMapping
     public R<String> login() {
