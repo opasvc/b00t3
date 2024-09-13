@@ -1,8 +1,6 @@
 package com.dztzb00t3.j2t.config.properties;
 
-import org.apache.ibatis.annotations.Property;
 import org.springframework.boot.context.properties.ConfigurationProperties;
-import org.springframework.boot.context.properties.EnableConfigurationProperties;
 import org.springframework.stereotype.Component;
 
 /**
