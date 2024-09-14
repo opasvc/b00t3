@@ -5,11 +5,11 @@ import com.dztzb003.j2t.common.result.R;
 import com.dztzb003.j2t.common.utils.TokenUtils;
 import jakarta.annotation.Resource;
 import lombok.extern.slf4j.Slf4j;
-import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.security.provisioning.UserDetailsManager;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.HashMap;
 import java.util.Map;
 
 /**
@@ -46,8 +46,15 @@ public class UserController {
 
     @GetMapping("/change")
     public R changePassword(@RequestParam String oldPassword,
-                                     @RequestParam String newPassword) {
+                            @RequestParam String newPassword) {
         manager.changePassword(oldPassword, encoder.encode(newPassword));
         return R.success("success");
+    }
+
+
+    @GetMapping("/home")
+    public R home() {
+        HashMap<Object, Object> hashMap = new HashMap<>();
+        return R.success(hashMap);
     }
 }
