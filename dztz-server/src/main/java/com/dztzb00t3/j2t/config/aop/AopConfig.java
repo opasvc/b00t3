@@ -5,6 +5,9 @@ import org.aspectj.lang.annotation.Around;
 import org.aspectj.lang.annotation.Aspect;
 import org.springframework.context.annotation.Configuration;
 
+import java.util.Arrays;
+import java.util.stream.Collectors;
+
 /**
  * 简单的实现aop
  * todo aop
@@ -19,7 +22,9 @@ public class AopConfig {
     @Around("@within(org.springframework.web.bind.annotation.RestController)")
     public Object simpleAop(final ProceedingJoinPoint proceedingJoinPoint) throws Throwable {
         Object[] args = proceedingJoinPoint.getArgs();
-//        System.out.println("入参: " + JSONObject.toJSONString(Arrays.asList(args)));
+        StringBuilder builder = new StringBuilder();
+        Arrays.stream(args).forEach(e -> builder.append(e).append(" "));
+        System.out.println("入参: " + builder.toString());
         // 调用原有的方法
         Object object = proceedingJoinPoint.proceed();
         System.out.println("返参: " + object);

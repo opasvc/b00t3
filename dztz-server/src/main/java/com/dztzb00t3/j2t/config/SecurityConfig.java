@@ -1,5 +1,6 @@
 package com.dztzb00t3.j2t.config;
 
+import jakarta.servlet.http.HttpServletRequest;
 import lombok.extern.slf4j.Slf4j;
 import org.apache.ibatis.datasource.pooled.PooledDataSource;
 import org.springframework.context.annotation.Configuration;
@@ -7,6 +8,7 @@ import org.springframework.context.annotation.Bean;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.ProviderManager;
 import org.springframework.security.authentication.dao.DaoAuthenticationProvider;
+import org.springframework.security.config.Customizer;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
@@ -14,6 +16,11 @@ import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.security.provisioning.JdbcUserDetailsManager;
 import org.springframework.security.provisioning.UserDetailsManager;
 import org.springframework.security.web.SecurityFilterChain;
+import org.springframework.web.cors.CorsConfiguration;
+import org.springframework.web.cors.CorsConfigurationSource;
+import org.springframework.web.cors.reactive.UrlBasedCorsConfigurationSource;
+import org.springframework.web.servlet.config.annotation.CorsRegistry;
+import org.springframework.web.servlet.config.annotation.WebMvcConfigurer;
 
 import javax.sql.DataSource;
 
@@ -38,11 +45,27 @@ public class SecurityConfig {
     @Bean //security 6 lambda形式
     public SecurityFilterChain securityFilterChain(HttpSecurity http) throws Exception {
         return http
+                .cors(csrf-> csrf
+                        .configurationSource(new CorsConfigurationSource() {
+                    @Override
+                    public CorsConfiguration getCorsConfiguration(HttpServletRequest request) {
+                        CorsConfiguration configuration = new CorsConfiguration();
+                        configuration.addAllowedOriginPattern("*"); // 允许所有来源
+                        configuration.addAllowedHeader("*"); // 允许所有头
+                        configuration.addAllowedMethod("*"); // 允许所有方法
+                        configuration.setAllowCredentials(true); // 允许凭证
+                        configuration.setMaxAge(3600L); // 预检请求的缓存时间
+                        UrlBasedCorsConfigurationSource source = new UrlBasedCorsConfigurationSource();
+                        source.registerCorsConfiguration("/**", configuration);
+                        return configuration;
+                    }
+                })
+                        .disable())
                 .authorizeHttpRequests(auth -> {
                     auth.requestMatchers("/user/login").permitAll();
                     auth.requestMatchers("/user").permitAll();
                     auth.requestMatchers("/user/home").hasRole("USER");
-//                    auth.anyRequest().authenticated();
+                    auth.anyRequest().authenticated();
                 })
                 .formLogin(auth -> {
 //                    auth.loginPage("/user");
@@ -79,30 +102,18 @@ public class SecurityConfig {
         return manager;
     }
 
-//==================================================================================================
-//    @Bean // 基于内存校验
-//    public UserDetailsService userDetailsService(PasswordEncoder encoder) {
-//        UserDetails user = User
-//                .withUsername("user")
-//                .password(encoder.encode("password"))   //这里将密码进行加密后存储
-//                .roles("USER")
-//                .build();
-//        System.out.println(encoder.encode("password"));  //一会观察一下加密出来之后的密码长啥样
-//        UserDetails admin = User
-//                .withUsername("admin")
-//                .password(encoder.encode("password"))   //这里将密码进行加密后存储
-//                .roles("ADMIN", "USER")
-//                .build();
-//        return new InMemoryUserDetailsManager(user, admin);
-//    }}
-
-//==================================================================================================
-//    @Bean    //仅首次启动时创建一个新的用户用于测试，后续无需创建
-//    public UserDetailsService userDetailsService(DataSource dataSource,
-//                                                 PasswordEncoder encoder) {
-//        JdbcUserDetailsManager manager = new JdbcUserDetailsManager(dataSource);
-//        //仅首次启动时创建一个新的用户用于测试，后续无需创建
-//        manager.createUser(User.withUsername("user").password(encoder.encode("password")).roles("USER").build());
-//        return manager;
+//    @Bean // 设置允许跨域
+//    public WebMvcConfigurer webMvcConfigurer() {
+//        return new WebMvcConfigurer() {
+//            @Override
+//            public void addCorsMappings(CorsRegistry registry) {
+//                registry
+//                        .addMapping("/**")
+//                        .allowedOrigins("*")
+//                        .allowedMethods("GET", "POST", "PUT", "DELETE", "OPTIONS")
+//                        .allowedHeaders("*")
+//                        .allowCredentials(true);
+//            }
+//        };
 //    }
 }
