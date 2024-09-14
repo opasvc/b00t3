@@ -7,15 +7,16 @@ import org.springframework.context.annotation.Bean;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.ProviderManager;
 import org.springframework.security.authentication.dao.DaoAuthenticationProvider;
+import org.springframework.security.config.annotation.web.WebSecurityConfigurer;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
+import org.springframework.security.config.annotation.web.builders.WebSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
+import org.springframework.security.config.annotation.web.configurers.AbstractHttpConfigurer;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.security.provisioning.JdbcUserDetailsManager;
 import org.springframework.security.provisioning.UserDetailsManager;
 import org.springframework.security.web.SecurityFilterChain;
-import org.springframework.web.cors.CorsConfiguration;
-import org.springframework.web.cors.reactive.UrlBasedCorsConfigurationSource;
 
 import javax.sql.DataSource;
 
@@ -29,7 +30,7 @@ import javax.sql.DataSource;
 @Slf4j
 @Configuration
 @EnableWebSecurity
-public class SecurityConfig {
+public class SecurityConfig implements WebSecurityConfigurer<WebSecurity>{
 
     //这里将BCryptPasswordEncoder直接注册为Bean，Security会自动进行选择
     @Bean
@@ -37,33 +38,21 @@ public class SecurityConfig {
         return new BCryptPasswordEncoder();
     }
 
-    @Bean //security 6 lambda形式
+    @Bean //security 6 lambda形式 SecurityFilterChain(安全过滤器链)
     public SecurityFilterChain securityFilterChain(HttpSecurity http) throws Exception {
         return http
-                .cors(csrf-> csrf //security 跨域
-                        .configurationSource(request -> {
-                            CorsConfiguration configuration = new CorsConfiguration();
-                            configuration.addAllowedOriginPattern("*"); // 允许所有来源
-                            configuration.addAllowedHeader("*"); // 允许所有头
-                            configuration.addAllowedMethod("*"); // 允许所有方法
-                            configuration.setAllowCredentials(true); // 允许凭证
-                            configuration.setMaxAge(3600L); // 预检请求的缓存时间
-                            UrlBasedCorsConfigurationSource source = new UrlBasedCorsConfigurationSource();
-                            source.registerCorsConfiguration("/**", configuration);
-                            return configuration;
-                        })
-                        .disable())
-                .authorizeHttpRequests(auth -> {
-                    auth.requestMatchers("/user/login").permitAll();
+                .cors(AbstractHttpConfigurer::disable) // 关闭 security cors 开启跨域
+                .authorizeHttpRequests(auth -> { // 配置请求的授权规则 配置请求拦截方式
+                    auth.requestMatchers("/user/login").permitAll(); // .requestMatchers() 某个请求不需要身份校验 .permitAll() 随意访问
                     auth.requestMatchers("/user").permitAll();
                     auth.requestMatchers("/user/home").hasRole("USER");
-                    auth.anyRequest().authenticated();
+                    auth.anyRequest().authenticated(); //其他请求都要校验
                 })
                 .formLogin(auth -> {
 //                    auth.loginPage("/user");
 //                    auth.loginProcessingUrl("/user/login");
-//                    auth.defaultSuccessUrl("/user/home");
-//                    auth.permitAll();
+                    auth.defaultSuccessUrl("/user/home");
+                    auth.permitAll();
                 })
 //                .oauth2Login(Customizer.withDefaults()) // 使用 OAuth2 登录
                 .build();
@@ -78,8 +67,9 @@ public class SecurityConfig {
     }
 
     //手动创建一个AuthenticationManager用于处理密码校验
-    private AuthenticationManager authenticationManager(UserDetailsManager manager,
-                                                        PasswordEncoder encoder) {
+    @Bean
+    public AuthenticationManager authenticationManager(UserDetailsManager manager,
+                                                       PasswordEncoder encoder) {
         DaoAuthenticationProvider provider = new DaoAuthenticationProvider();
         provider.setUserDetailsService(manager);
         provider.setPasswordEncoder(encoder);
@@ -95,4 +85,14 @@ public class SecurityConfig {
         return manager;
     }
 
+
+    @Override
+    public void init(WebSecurity builder) throws Exception {
+
+    }
+
+    @Override
+    public void configure(WebSecurity builder) throws Exception {
+
+    }
 }

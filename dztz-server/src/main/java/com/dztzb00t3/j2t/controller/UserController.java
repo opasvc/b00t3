@@ -1,6 +1,7 @@
 package com.dztzb00t3.j2t.controller;
 
 import com.dztzb003.j2t.common.entity.User;
+import com.dztzb003.j2t.common.entity.UserInfo;
 import com.dztzb003.j2t.common.result.R;
 import com.dztzb003.j2t.common.utils.TokenUtils;
 import com.dztzb00t3.j2t.service.UserInfoService;
@@ -46,12 +47,9 @@ public class UserController {
     }
 
     @PostMapping("/login")
-    public R login(@RequestBody User user) {
+    public R login(@RequestBody UserInfo user) {
         log.info("login user:{}", user);
-        String token = TokenUtils.generateToken(user.getUsername());
-
-        Map<String, String> resultMap = Map.of("token", token);
-        return R.success(resultMap);
+        return this.userInfoService.login(user);
     }
 
     @GetMapping("/change")
