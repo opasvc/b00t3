@@ -1,9 +1,7 @@
 package com.dztzb00t3.j2t.controller;
 
-import com.dztzb003.j2t.common.entity.User;
-import com.dztzb003.j2t.common.entity.UserInfo;
+import com.dztzb003.j2t.common.domain.entity.UserInfo;
 import com.dztzb003.j2t.common.result.R;
-import com.dztzb003.j2t.common.utils.TokenUtils;
 import com.dztzb00t3.j2t.service.UserInfoService;
 import jakarta.annotation.Resource;
 import lombok.extern.slf4j.Slf4j;
@@ -12,7 +10,6 @@ import org.springframework.security.provisioning.UserDetailsManager;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.HashMap;
-import java.util.Map;
 
 /**
  * user controller

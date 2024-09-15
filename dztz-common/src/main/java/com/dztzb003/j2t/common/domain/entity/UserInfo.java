@@ -1,9 +1,11 @@
-package com.dztzb003.j2t.common.entity;
+package com.dztzb003.j2t.common.domain.entity;
 
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
+import org.springframework.security.core.userdetails.UserDetails;
 
+import java.io.Serializable;
 import java.time.LocalDateTime;
 
 /**
@@ -15,7 +17,7 @@ import java.time.LocalDateTime;
 @Data
 @AllArgsConstructor
 @NoArgsConstructor
-public class UserInfo {
+public class UserInfo implements Serializable {
 
     /**
      * id primary
@@ -30,7 +32,7 @@ public class UserInfo {
     /**
      * 账户名 unique, not null
      */
-    private String userName;
+    private String username;
 
     /**
      * 密码

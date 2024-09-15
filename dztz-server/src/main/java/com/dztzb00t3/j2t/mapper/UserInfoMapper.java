@@ -1,6 +1,9 @@
 package com.dztzb00t3.j2t.mapper;
 
+import com.dztzb003.j2t.common.domain.entity.UserInfo;
 import org.apache.ibatis.annotations.Mapper;
+import org.apache.ibatis.annotations.Param;
+import org.apache.ibatis.annotations.Select;
 
 /**
  * 自定义用户表 mapper
@@ -10,6 +13,10 @@ import org.apache.ibatis.annotations.Mapper;
  */
 @Mapper
 public interface UserInfoMapper {
-
-
+    /**
+     * @param username 用户名
+     * @return userinfo
+     */
+    @Select("select * from user_info where username = #{username} ")
+    UserInfo queryUserInfoByUsername(@Param("username") String username);
 }

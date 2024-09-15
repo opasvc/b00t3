@@ -1,6 +1,6 @@
 package com.dztzb00t3.j2t.service;
 
-import com.dztzb003.j2t.common.entity.UserInfo;
+import com.dztzb003.j2t.common.domain.entity.UserInfo;
 import com.dztzb003.j2t.common.result.R;
 
 /**
