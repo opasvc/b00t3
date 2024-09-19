@@ -14,6 +14,8 @@ import org.springframework.security.core.Authentication;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 
+import java.util.List;
+
 /**
  * 自定义用户表 serviceImpl
  *
@@ -30,7 +32,10 @@ public class UserInfoServiceImpl implements UserInfoService {
     @Resource
     private AuthenticationManager authenticationManager;
 
-
+    /**
+     * @param userInfo username && password
+     * @return token
+     */
     @Override
     public R login(UserInfo userInfo) {
         // 封装Authentication对象
@@ -44,8 +49,14 @@ public class UserInfoServiceImpl implements UserInfoService {
         Object loginUser = authenticate.getPrincipal();
         String jsonString = JSON.toJSONString(loginUser);
         String token = TokenUtils.generateToken(jsonString);
-
-
         return R.success(token);
+    }
+
+    /**
+     * @return List->UserInfo
+     */
+    @Override
+    public List<UserInfo> getUserList() {
+        return this.userInfoMapper.queryUserInfoListAll("user");
     }
 }

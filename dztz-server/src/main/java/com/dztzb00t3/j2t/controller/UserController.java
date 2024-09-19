@@ -1,5 +1,6 @@
 package com.dztzb00t3.j2t.controller;
 
+import java.util.List;
 import java.util.Map;
 import java.util.HashMap;
 import lombok.extern.slf4j.Slf4j;
@@ -44,7 +45,8 @@ public class UserController {
 
     @GetMapping
     public R login() {
-        return R.success();
+        List<UserInfo> userInfoList=userInfoService.getUserList();
+        return R.success(userInfoList);
     }
 
     @PostMapping("/login")
