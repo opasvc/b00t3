@@ -1,14 +1,12 @@
 package com.dztzb003.j2t.common.utils;
 
+import java.util.Date;
+
 import com.auth0.jwt.JWT;
 import com.auth0.jwt.algorithms.Algorithm;
 import com.auth0.jwt.interfaces.DecodedJWT;
 import com.auth0.jwt.interfaces.JWTVerifier;
 
-import java.time.OffsetDateTime;
-import java.util.Date;
-import java.util.Map;
-import java.util.UUID;
 
 /**
  * token工具类
@@ -19,7 +17,7 @@ import java.util.UUID;
 public class TokenUtils {
     private static final Long EXPIRATION_TIME = 1000L * 60L * 60L * 3L;
 
-    private static final String SECRET = "your_secret_key";
+    private static final String SECRET = "DZTZ.J2T";
 //    private static final long EXPIRATION_TIME = 864_000_00; // 1 day in milliseconds
 
     // 生成Token

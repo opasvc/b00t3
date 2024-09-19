@@ -21,32 +21,34 @@ public class R<T> implements Serializable {
     private T data;
     private LocalDateTime localTime;
 
-    public static <T> R error(String msg) {
-        R r = new R();
+    public static <T> R <T>  error(String msg) {
+        R<T> r = new R<T>();
         r.code = 500;
         r.msg = msg;
         r.localTime = LocalDateTime.now();
         return r;
     }
 
-    public static <T> R error(Integer code, String msg) {
-        R r = new R();
+    public static <T> R <T>  error(Integer code, String msg) {
+        R<T> r = new R<T>();
         r.code = code;
         r.msg = msg;
         r.localTime = LocalDateTime.now();
         return r;
     }
 
-    public static <T> R success() {
-        R r = new R();
+    public static <T> R <T> success() {
+        R<T> r = new R<T>();
         r.code = 200;
+        r.msg = "success";
         r.localTime = LocalDateTime.now();
         return r;
     }
 
-    public static <T> R success(T data) {
-        R r = new R();
+    public static <T> R <T> success(T data) {
+        R<T> r = new R<T>();
         r.code = 200;
+        r.msg = "success";
         r.data = data;
         r.localTime = LocalDateTime.now();
         return r;

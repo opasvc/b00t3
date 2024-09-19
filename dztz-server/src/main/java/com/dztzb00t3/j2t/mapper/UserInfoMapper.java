@@ -1,9 +1,10 @@
 package com.dztzb00t3.j2t.mapper;
 
-import com.dztzb003.j2t.common.domain.entity.UserInfo;
-import org.apache.ibatis.annotations.Mapper;
 import org.apache.ibatis.annotations.Param;
+import org.apache.ibatis.annotations.Mapper;
 import org.apache.ibatis.annotations.Select;
+import org.apache.ibatis.annotations.ResultMap;
+import com.dztzb003.j2t.common.domain.entity.UserInfo;
 
 /**
  * 自定义用户表 mapper
@@ -13,6 +14,7 @@ import org.apache.ibatis.annotations.Select;
  */
 @Mapper
 public interface UserInfoMapper {
+
     /**
      * @param username 用户名
      * @return userinfo

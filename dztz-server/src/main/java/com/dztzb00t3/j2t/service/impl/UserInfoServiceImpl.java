@@ -1,18 +1,18 @@
 package com.dztzb00t3.j2t.service.impl;
 
+import lombok.extern.slf4j.Slf4j;
 import com.alibaba.fastjson2.JSON;
+import jakarta.annotation.Resource;
+import com.dztzb003.j2t.common.result.R;
+import org.springframework.stereotype.Service;
+import com.dztzb00t3.j2t.mapper.UserInfoMapper;
+import com.dztzb003.j2t.common.utils.TokenUtils;
+import com.dztzb00t3.j2t.service.UserInfoService;
 import com.dztzb003.j2t.common.domain.VO.LoginUser;
 import com.dztzb003.j2t.common.domain.entity.UserInfo;
-import com.dztzb003.j2t.common.result.R;
-import com.dztzb003.j2t.common.utils.TokenUtils;
-import com.dztzb00t3.j2t.mapper.UserInfoMapper;
-import com.dztzb00t3.j2t.service.UserInfoService;
-import jakarta.annotation.Resource;
-import lombok.extern.slf4j.Slf4j;
+import org.springframework.security.core.Authentication;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
-import org.springframework.security.core.Authentication;
-import org.springframework.stereotype.Service;
 
 /**
  * 自定义用户表 serviceImpl

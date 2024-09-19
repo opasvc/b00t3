@@ -1,15 +1,15 @@
 package com.dztzb003.j2t.common.domain.VO;
 
 
-import com.dztzb003.j2t.common.domain.entity.UserInfo;
 import lombok.Data;
+import java.util.List;
+import java.io.Serializable;
+import java.util.Collection;
 import lombok.NoArgsConstructor;
+import com.dztzb003.j2t.common.domain.entity.UserInfo;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
 
-import java.io.Serializable;
-import java.util.Collection;
-import java.util.List;
 
 /**
  * 实现security自带的 UserDetails

@@ -1,24 +1,24 @@
 package com.dztzb00t3.j2t.config.security;
 
-import lombok.extern.slf4j.Slf4j;
-import org.apache.ibatis.datasource.pooled.PooledDataSource;
-import org.springframework.context.annotation.Configuration;
-import org.springframework.context.annotation.Bean;
-import org.springframework.security.authentication.AuthenticationManager;
-import org.springframework.security.authentication.ProviderManager;
-import org.springframework.security.authentication.dao.DaoAuthenticationProvider;
-import org.springframework.security.config.annotation.web.WebSecurityConfigurer;
-import org.springframework.security.config.annotation.web.builders.HttpSecurity;
-import org.springframework.security.config.annotation.web.builders.WebSecurity;
-import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
-import org.springframework.security.config.annotation.web.configurers.AbstractHttpConfigurer;
-import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
-import org.springframework.security.crypto.password.PasswordEncoder;
-import org.springframework.security.provisioning.JdbcUserDetailsManager;
-import org.springframework.security.provisioning.UserDetailsManager;
-import org.springframework.security.web.SecurityFilterChain;
 
 import javax.sql.DataSource;
+import lombok.extern.slf4j.Slf4j;
+import org.springframework.context.annotation.Bean;
+import org.apache.ibatis.datasource.pooled.PooledDataSource;
+import org.springframework.context.annotation.Configuration;
+import org.springframework.security.web.SecurityFilterChain;
+import org.springframework.security.authentication.ProviderManager;
+import org.springframework.security.crypto.password.PasswordEncoder;
+import org.springframework.security.provisioning.UserDetailsManager;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
+import org.springframework.security.provisioning.JdbcUserDetailsManager;
+import org.springframework.security.authentication.AuthenticationManager;
+import org.springframework.security.config.annotation.web.builders.WebSecurity;
+import org.springframework.security.config.annotation.web.WebSecurityConfigurer;
+import org.springframework.security.config.annotation.web.builders.HttpSecurity;
+import org.springframework.security.authentication.dao.DaoAuthenticationProvider;
+import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
+
 
 /**
  * security config
@@ -60,9 +60,9 @@ public class SecurityConfig implements WebSecurityConfigurer<WebSecurity> {
         http
                 .authorizeHttpRequests(auth -> { // 配置请求的授权规则 配置请求拦截方式
                     auth.requestMatchers("/user/login").permitAll(); // .requestMatchers() 某个请求不需要身份校验 .permitAll() 随意访问
-                    auth.requestMatchers("/user").permitAll();
                     auth.requestMatchers("/user/home").hasRole("USER");
 //                    auth.anyRequest().authenticated(); //其他请求都要校验
+                    auth.anyRequest().permitAll();
                 });
         http
                 .formLogin(auth -> {

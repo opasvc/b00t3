@@ -1,15 +1,16 @@
 package com.dztzb00t3.j2t.controller;
 
-import com.dztzb003.j2t.common.domain.entity.UserInfo;
+import java.util.Map;
+import java.util.HashMap;
+import lombok.extern.slf4j.Slf4j;
+import jakarta.annotation.Resource;
 import com.dztzb003.j2t.common.result.R;
 import com.dztzb00t3.j2t.service.UserInfoService;
-import jakarta.annotation.Resource;
-import lombok.extern.slf4j.Slf4j;
+import org.springframework.web.bind.annotation.*;
+import com.dztzb003.j2t.common.domain.entity.UserInfo;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.security.provisioning.UserDetailsManager;
-import org.springframework.web.bind.annotation.*;
 
-import java.util.HashMap;
 
 /**
  * user controller
@@ -21,16 +22,19 @@ import java.util.HashMap;
 @RestController
 @RequestMapping("/user")
 public class UserController {
+
     /**
      * security 自带mapper
      */
     @Resource
     private UserDetailsManager manager;
+
     /**
      * 自定义userinfo service
      */
     @Resource
     private UserInfoService userInfoService;
+
     /**
      * 密码加密器
      */
@@ -50,7 +54,7 @@ public class UserController {
     }
 
     @GetMapping("/change")
-    public R changePassword(@RequestParam String oldPassword,
+    public R<String> changePassword(@RequestParam String oldPassword,
                             @RequestParam String newPassword) {
         manager.changePassword(oldPassword, encoder.encode(newPassword));
         return R.success("success");
@@ -58,7 +62,7 @@ public class UserController {
 
 
     @GetMapping("/home")
-    public R home() {
+    public R<Map> home() {
         HashMap<Object, Object> hashMap = new HashMap<>();
         return R.success(hashMap);
     }

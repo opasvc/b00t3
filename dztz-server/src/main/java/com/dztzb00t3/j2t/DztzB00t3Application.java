@@ -1,13 +1,12 @@
 package com.dztzb00t3.j2t;
 
-import com.dztzb003.j2t.common.utils.DefaultProfileUtil;
-import lombok.extern.slf4j.Slf4j;
-import org.springframework.boot.SpringApplication;
-import org.springframework.boot.autoconfigure.SpringBootApplication;
-import org.springframework.core.env.Environment;
-
 import java.net.InetAddress;
+import lombok.extern.slf4j.Slf4j;
 import java.net.UnknownHostException;
+import org.springframework.core.env.Environment;
+import org.springframework.boot.SpringApplication;
+import com.dztzb003.j2t.common.utils.DefaultProfileUtil;
+import org.springframework.boot.autoconfigure.SpringBootApplication;
 
 /**
  * 启动类

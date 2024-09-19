@@ -1,12 +1,11 @@
 package com.dztzb003.j2t.common.domain.entity;
 
-import lombok.AllArgsConstructor;
 import lombok.Data;
-import lombok.NoArgsConstructor;
-import org.springframework.security.core.userdetails.UserDetails;
-
 import java.io.Serializable;
 import java.time.LocalDateTime;
+import lombok.NoArgsConstructor;
+import lombok.AllArgsConstructor;
+import org.springframework.security.core.userdetails.UserDetails;
 
 /**
  * 自定义用户表 entity
