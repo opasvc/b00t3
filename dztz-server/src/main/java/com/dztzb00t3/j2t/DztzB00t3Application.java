@@ -3,10 +3,15 @@ package com.dztzb00t3.j2t;
 import java.net.InetAddress;
 import lombok.extern.slf4j.Slf4j;
 import java.net.UnknownHostException;
+
+import org.apache.ibatis.datasource.pooled.PooledDataSource;
+import org.springframework.context.annotation.Bean;
 import org.springframework.core.env.Environment;
 import org.springframework.boot.SpringApplication;
 import com.dztzb003.j2t.common.utils.DefaultProfileUtil;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
+
+import javax.sql.DataSource;
 
 /**
  * 启动类

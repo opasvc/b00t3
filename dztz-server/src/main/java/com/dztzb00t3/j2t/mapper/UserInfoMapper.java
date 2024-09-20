@@ -17,6 +17,9 @@ import java.util.List;
 @Mapper
 public interface UserInfoMapper {
 
+
+
+
     /**
      * @param username 用户名
      * @return userinfo
@@ -24,9 +27,16 @@ public interface UserInfoMapper {
     @Select("select * from user_info where username = #{username} ")
     UserInfo queryUserInfoByUsername(@Param("username") String username);
 
+
+
+
     /**
      * @return userinfo集合
      */
     @Select("select * from user_info where username = #{username} ")
     List<UserInfo> queryUserInfoListAll(@Param("username") String username);
+
+
+
+
 }

@@ -94,14 +94,14 @@ public class AopConfig {
 
 }
 /*
-前置通知
-    @Before("execution(* com.example.service.*.*(..))")
-后置通知
-     @After("execution(* com.example.service.*.*(..))")
-返回通知
-    @AfterReturning(pointcut = "execution(* com.example.service.*.*(..))", returning = "result")
-异常通知
-    @AfterThrowing(pointcut = "execution(* com.example.service.*.*(..))", throwing = "error")
-环绕通知
-    @Around("execution(* com.example.service.*.*(..))")
+    前置通知
+        @Before("execution(* com.example.service.*.*(..))")
+    后置通知
+        @After("execution(* com.example.service.*.*(..))")
+    返回通知
+        @AfterReturning(pointcut = "execution(* com.example.service.*.*(..))", returning = "result")
+    异常通知
+        @AfterThrowing(pointcut = "execution(* com.example.service.*.*(..))", throwing = "error")
+    环绕通知
+        @Around("execution(* com.example.service.*.*(..))")
  */

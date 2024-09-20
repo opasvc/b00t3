@@ -14,5 +14,7 @@ create table user_info
     login_ip    varchar(16) null comment '登录ip',
     create_ip   varchar(16) null comment '注册ip'
 ) comment '自定义用户表';
+INSERT INTO javatechie.user_info (id, name, username, password, email, roles, create_time, login_time, login_ip, create_ip) VALUES (1, 'admin', 'admin', '$2a$10$198hYaxtoIHsTz8v2LoUdOEEH9hm/ZD6sDuemjv1Cgyvoc241R4Tu', null, '1', null, null, null, null);
+INSERT INTO javatechie.user_info (id, name, username, password, email, roles, create_time, login_time, login_ip, create_ip) VALUES (2, 'user', 'user', '$2a$10$198hYaxtoIHsTz8v2LoUdOEEH9hm/ZD6sDuemjv1Cgyvoc241R4Tu', null, '2', null, null, null, null);
 
 # ===================================================

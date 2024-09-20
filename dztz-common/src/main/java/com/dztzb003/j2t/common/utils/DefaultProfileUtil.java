@@ -13,32 +13,46 @@ import java.util.Map;
  * @date 2024/09/12
  */
 public class DefaultProfileUtil {
+
+
+
     public static final String SPRING_PROFILE_DEVELOPMENT = "dev";
+
+
+
     private static final String SPRING_PROFILE_DEFAULT = "spring.profiles.default";
+
+
 
     private DefaultProfileUtil() {
     }
 
+
+
+
     /**
-     * Set a default to use when no profile is configured.
+     * 设置在未配置配置文件时使用的默认值。
      *
      * @param app the Spring application
      */
     public static void addDefaultProfile(SpringApplication app) {
         Map<String, Object> defProperties = new HashMap<>();
         /*
-         * The default profile to use when no other profiles are defined
-         * This cannot be set in the <code>application.yml</code> file.
-         * See https://github.com/spring-projects/spring-boot/issues/1219
+         * 当没有定义其他配置文件时使用的默认配置文件
+         * 无法在 <code>application.yml</code> 文件中设置。
+         * 请参阅 https://github.com/spring-projects/spring-boot/issues/1219
          */
         defProperties.put(SPRING_PROFILE_DEFAULT, SPRING_PROFILE_DEVELOPMENT);
         app.setDefaultProperties(defProperties);
     }
 
+
+
+
     /**
-     * Get the profiles that are applied else get default profiles.
+     * 获取已应用的配置文件，否则获取默认配置文件。
      *
-     * @param env spring environment
+     * @param env spring环境
      * @return profiles
      */
     public static String[] getActiveProfiles(Environment env) {
@@ -48,4 +62,8 @@ public class DefaultProfileUtil {
         }
         return profiles;
     }
+
+
+
+
 }

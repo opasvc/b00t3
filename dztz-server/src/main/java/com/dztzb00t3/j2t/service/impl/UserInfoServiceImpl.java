@@ -52,6 +52,10 @@ public class UserInfoServiceImpl implements UserInfoService {
         return R.success(token);
     }
 
+
+
+
+
     /**
      * @return List->UserInfo
      */
@@ -59,4 +63,8 @@ public class UserInfoServiceImpl implements UserInfoService {
     public List<UserInfo> getUserList() {
         return this.userInfoMapper.queryUserInfoListAll("user");
     }
+
+
+
+
 }

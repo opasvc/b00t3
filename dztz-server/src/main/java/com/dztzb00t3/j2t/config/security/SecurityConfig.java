@@ -32,8 +32,8 @@ import org.springframework.security.config.annotation.web.configuration.EnableWe
 @EnableWebSecurity
 public class SecurityConfig implements WebSecurityConfigurer<WebSecurity> {
 
-    //这里将BCryptPasswordEncoder直接注册为Bean，Security会自动进行选择
-    @Bean
+
+    @Bean // 这里将BCryptPasswordEncoder直接注册为Bean，Security会自动进行选择
     public PasswordEncoder passwordEncoder() {
         return new BCryptPasswordEncoder();
     }
@@ -74,13 +74,6 @@ public class SecurityConfig implements WebSecurityConfigurer<WebSecurity> {
         return http.build();
     }
 
-
-    @Bean // 基于数据库校验
-    public DataSource dataSource() {
-        //数据源配置
-        return new PooledDataSource("com.mysql.cj.jdbc.Driver",
-                "jdbc:mysql://localhost:3306/javatechie", "root", "rootroot");
-    }
 
     //手动创建一个AuthenticationManager用于处理密码校验
     @Bean
