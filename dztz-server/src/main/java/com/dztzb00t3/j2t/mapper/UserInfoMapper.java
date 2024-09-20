@@ -3,7 +3,6 @@ package com.dztzb00t3.j2t.mapper;
 import org.apache.ibatis.annotations.Param;
 import org.apache.ibatis.annotations.Mapper;
 import org.apache.ibatis.annotations.Select;
-import org.apache.ibatis.annotations.ResultMap;
 import com.dztzb003.j2t.common.domain.entity.UserInfo;
 
 import java.util.List;

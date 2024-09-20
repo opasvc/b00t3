@@ -25,4 +25,13 @@ public interface UserInfoService {
      */
     List<UserInfo> getUserList();
 
+    /**
+     * @param username 用户名
+     * @return 用户名查重
+     */
+    R<Boolean> isUsernameRepeat(String username);
+
+
+
+
 }

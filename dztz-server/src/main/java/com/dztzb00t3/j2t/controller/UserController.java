@@ -3,6 +3,7 @@ package com.dztzb00t3.j2t.controller;
 import java.util.List;
 import java.util.Map;
 import java.util.HashMap;
+
 import lombok.extern.slf4j.Slf4j;
 import jakarta.annotation.Resource;
 import com.dztzb003.j2t.common.result.R;
@@ -45,7 +46,7 @@ public class UserController {
 
     @GetMapping
     public R login() {
-        List<UserInfo> userInfoList=userInfoService.getUserList();
+        List<UserInfo> userInfoList = userInfoService.getUserList();
         return R.success(userInfoList);
     }
 
@@ -57,15 +58,21 @@ public class UserController {
 
     @GetMapping("/change")
     public R<String> changePassword(@RequestParam String oldPassword,
-                            @RequestParam String newPassword) {
+                                    @RequestParam String newPassword) {
         manager.changePassword(oldPassword, encoder.encode(newPassword));
         return R.success("success");
     }
 
-
-    @GetMapping("/home")
-    public R<Map> home() {
-        HashMap<Object, Object> hashMap = new HashMap<>();
-        return R.success(hashMap);
+    /**
+     * @param username 用户名查重
+     * @return 根据 username 查询
+     */
+    @GetMapping("/username/{username}")
+    public R<Boolean> isUsernameRepeat(@PathVariable("username") String username) {
+        return this.userInfoService.isUsernameRepeat(username);
     }
+
+
+
+
 }

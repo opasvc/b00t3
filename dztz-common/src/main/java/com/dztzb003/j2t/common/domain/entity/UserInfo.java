@@ -49,6 +49,11 @@ public class UserInfo implements Serializable {
     private String roles;
 
     /**
+     * 账户状态 0-正常;1-异常;2-封禁;3-注销;4-锁定;
+     */
+    private Integer user_status;
+
+    /**
      * 注册时间
      */
     private LocalDateTime createTime;

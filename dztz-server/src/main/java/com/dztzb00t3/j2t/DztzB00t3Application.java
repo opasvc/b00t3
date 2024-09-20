@@ -3,15 +3,12 @@ package com.dztzb00t3.j2t;
 import java.net.InetAddress;
 import lombok.extern.slf4j.Slf4j;
 import java.net.UnknownHostException;
-
-import org.apache.ibatis.datasource.pooled.PooledDataSource;
-import org.springframework.context.annotation.Bean;
 import org.springframework.core.env.Environment;
 import org.springframework.boot.SpringApplication;
 import com.dztzb003.j2t.common.utils.DefaultProfileUtil;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 
-import javax.sql.DataSource;
+
 
 /**
  * 启动类
@@ -33,11 +30,18 @@ public class DztzB00t3Application {
         if (env.getProperty(SERVER_SSL_KEY_STORE) != null) {
             protocol = "https";
         }
-        log.info("\n----------------------------------------------------------\n\t" +
-                        "Application '{}' is running! Access URLs:\n\t" +
-                        "Local: \t\t{}://localhost:{}\n\t" +
-                        "External: \t{}://{}:{}\n\t" +
-                        "Profile(s): \t{}\n----------------------------------------------------------",
+        log.info("""
+
+                        ----------------------------------------------------------
+                        \t\
+                        Application '{}' is running! Access URLs:
+                        \t\
+                        Local: \t\t{}://localhost:{}
+                        \t\
+                        External: \t{}://{}:{}
+                        \t\
+                        Profile(s): \t{}
+                        ----------------------------------------------------------""",
                 env.getProperty("spring.application.name"),
                 protocol,
                 env.getProperty("server.port"),

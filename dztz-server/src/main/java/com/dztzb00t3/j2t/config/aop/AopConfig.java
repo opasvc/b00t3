@@ -1,8 +1,6 @@
 package com.dztzb00t3.j2t.config.aop;
 
 import lombok.extern.slf4j.Slf4j;
-import com.alibaba.fastjson2.JSON;
-import org.aspectj.lang.Signature;
 import jakarta.annotation.Resource;
 import org.apache.ibatis.mapping.BoundSql;
 import org.aspectj.lang.annotation.Around;
@@ -65,7 +63,7 @@ public class AopConfig {
         try {
             result = point.proceed(); // 执行目标方法
             String sql = getSql(point);
-            log.info("\n本次执行Sql为: \n{}\n用时: {}ms----------------------------------------------------"
+            log.info("\n本次执行Sql为: \n{};\n用时: {}ms\n----------------------------------------------------"
                     , sql
                     , System.currentTimeMillis() - startTime);
             return result;
