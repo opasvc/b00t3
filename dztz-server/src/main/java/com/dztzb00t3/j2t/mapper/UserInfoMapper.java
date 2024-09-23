@@ -1,5 +1,6 @@
 package com.dztzb00t3.j2t.mapper;
 
+import com.dztzb003.j2t.common.domain.DTO.UserInfoQueryDTO;
 import org.apache.ibatis.annotations.Param;
 import org.apache.ibatis.annotations.Mapper;
 import org.apache.ibatis.annotations.Select;
@@ -32,8 +33,7 @@ public interface UserInfoMapper {
     /**
      * @return userinfo集合
      */
-    @Select("select * from user_info where username = #{username} ")
-    List<UserInfo> queryUserInfoListAll(@Param("username") String username);
+    List<UserInfo> queryUserInfoListAll(@Param("query") UserInfoQueryDTO queryDTO);
 
 
 

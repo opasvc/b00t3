@@ -1,23 +1,22 @@
-package com.dztzb003.j2t.common.domain.entity;
+package com.dztzb003.j2t.common.domain.DTO;
 
+import lombok.AllArgsConstructor;
 import lombok.Data;
+import lombok.NoArgsConstructor;
 
-import java.io.Serializable;
 import java.time.LocalDateTime;
 
-import lombok.NoArgsConstructor;
-import lombok.AllArgsConstructor;
-
 /**
- * 自定义用户表 entity
+ * userinfo query object
  *
  * @author j2t
- * @date 2024/09/14 15:52
+ * @date 2024/09/23
  */
+
 @Data
 @AllArgsConstructor
 @NoArgsConstructor
-public class UserInfo implements Serializable {
+public class UserInfoQueryDTO {
 
     /**
      * id primary
@@ -52,7 +51,7 @@ public class UserInfo implements Serializable {
     /**
      * 账户状态 0-正常;1-异常;2-封禁;3-注销;4-锁定;
      */
-    private Integer userStatus;
+    private Integer user_status;
 
     /**
      * 注册时间
@@ -73,6 +72,4 @@ public class UserInfo implements Serializable {
      * 注册时ip
      */
     private String createIp;
-
-
 }

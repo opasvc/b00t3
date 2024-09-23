@@ -1,9 +1,11 @@
 package com.dztzb00t3.j2t.controller;
 
 import java.util.List;
-import java.util.Map;
-import java.util.HashMap;
 
+import com.dztzb003.j2t.common.domain.DTO.QueryPage;
+import com.dztzb003.j2t.common.domain.DTO.UserInfoQueryDTO;
+import com.github.pagehelper.PageHelper;
+import com.github.pagehelper.PageInfo;
 import lombok.extern.slf4j.Slf4j;
 import jakarta.annotation.Resource;
 import com.dztzb003.j2t.common.result.R;
@@ -45,9 +47,12 @@ public class UserController {
 
 
     @GetMapping
-    public R login() {
-        List<UserInfo> userInfoList = userInfoService.getUserList();
-        return R.success(userInfoList);
+    public R<PageInfo> login(UserInfoQueryDTO dto, QueryPage queryPage) {
+        log.info("dto: {};queryPage: {}", dto, queryPage);
+        PageHelper.startPage(queryPage.getPageNum(), queryPage.getPageSize());
+        List<UserInfo> userInfoList = userInfoService.getUserList(dto);
+        PageInfo pageInfo = new PageInfo(userInfoList);
+        return R.success(pageInfo);
     }
 
     @PostMapping("/login")
@@ -71,8 +76,6 @@ public class UserController {
     public R<Boolean> isUsernameRepeat(@PathVariable("username") String username) {
         return this.userInfoService.isUsernameRepeat(username);
     }
-
-
 
 
 }

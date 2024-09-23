@@ -1,10 +1,9 @@
 package com.dztzb00t3.j2t.service.impl;
 
+import com.dztzb003.j2t.common.domain.DTO.UserInfoQueryDTO;
 import lombok.extern.slf4j.Slf4j;
-import com.alibaba.fastjson2.JSON;
 import jakarta.annotation.Resource;
 import com.dztzb003.j2t.common.result.R;
-import org.apache.commons.lang3.ArrayUtils;
 import org.apache.commons.lang3.StringUtils;
 import org.springframework.security.core.userdetails.User;
 import org.springframework.stereotype.Service;
@@ -15,7 +14,6 @@ import com.dztzb003.j2t.common.domain.entity.UserInfo;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
-import org.springframework.util.CollectionUtils;
 
 import java.util.List;
 
@@ -35,6 +33,17 @@ public class UserInfoServiceImpl implements UserInfoService {
     @Resource
     private AuthenticationManager authenticationManager;
 
+
+
+    /**
+     * @return List->UserInfo
+     */
+    @Override
+    public List<UserInfo> getUserList(UserInfoQueryDTO queryDTO) {
+        return this.userInfoMapper.queryUserInfoListAll(queryDTO);
+    }
+
+
     /**
      * @param userInfo username && password
      * @return token
@@ -49,7 +58,7 @@ public class UserInfoServiceImpl implements UserInfoService {
         if (authenticate == null)
             return R.error("登录失败");
         //放入的user对象
-        User loginUser =(User) authenticate.getPrincipal();
+        User loginUser = (User) authenticate.getPrincipal();
 //        String jsonString = JSON.toJSONString(loginUser);
         String token = TokenUtils.generateToken(loginUser.getUsername());
         return R.success(token);
@@ -60,14 +69,6 @@ public class UserInfoServiceImpl implements UserInfoService {
 
 
     /**
-     * @return List->UserInfo
-     */
-    @Override
-    public List<UserInfo> getUserList() {
-        return this.userInfoMapper.queryUserInfoListAll("user");
-    }
-
-    /**
      * @param username 用户名
      * @return 用户名查重
      */
@@ -76,13 +77,12 @@ public class UserInfoServiceImpl implements UserInfoService {
         if (StringUtils.isBlank(username)) {
             return R.success(false);
         }
-        List<UserInfo> userInfos = this.userInfoMapper.queryUserInfoListAll(username);
-        if (userInfos.isEmpty()) {
+        UserInfo userInfos = this.userInfoMapper.queryUserInfoByUsername(username);
+        if (userInfos == null) {
             return R.success(true);
         }
         return R.success(false);
     }
-
 
 
 }
