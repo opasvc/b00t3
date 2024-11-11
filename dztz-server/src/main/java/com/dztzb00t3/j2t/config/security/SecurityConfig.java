@@ -2,9 +2,11 @@ package com.dztzb00t3.j2t.config.security;
 
 
 import javax.sql.DataSource;
+
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.security.config.annotation.web.configurers.AbstractHttpConfigurer;
 import org.springframework.security.web.SecurityFilterChain;
 import org.springframework.security.authentication.ProviderManager;
 import org.springframework.security.crypto.password.PasswordEncoder;
@@ -54,21 +56,14 @@ public class SecurityConfig implements WebSecurityConfigurer<WebSecurity> {
     public SecurityFilterChain securityFilterChain(HttpSecurity http) throws Exception {
         http
                 .csrf(csrf -> csrf.disable());
-        http// 关闭 security cors 开启跨域
+        http    // 关闭 security cors 开启跨域
                 .cors(cors -> cors.disable());
-        http
-                .authorizeHttpRequests(auth -> { // 配置请求的授权规则 配置请求拦截方式
-                    auth.requestMatchers("/user/login").permitAll(); // .requestMatchers() 某个请求不需要身份校验 .permitAll() 随意访问
-//                    auth.requestMatchers("/user/home").hasRole("USER");
-//                    auth.anyRequest().authenticated(); //其他请求都要校验
+        http    // 配置请求的授权规则 配置请求拦截方式
+                .authorizeHttpRequests(auth -> {
+                    // .requestMatchers() 某个请求不需要身份校验 .permitAll() 随意访问
+                    auth.requestMatchers("/user/login").permitAll();
+                    auth.requestMatchers("/").permitAll();
                     auth.anyRequest().permitAll();
-                });
-        http
-                .formLogin(auth -> {
-//                    auth.loginPage("/user");
-//                    auth.loginProcessingUrl("/user/login");
-//                    auth.defaultSuccessUrl("/user/home");
-//                    auth.permitAll();
                 });
         return http.build();
     }

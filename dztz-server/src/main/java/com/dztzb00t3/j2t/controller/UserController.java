@@ -46,7 +46,7 @@ public class UserController {
     private PasswordEncoder encoder;
 
 
-    @GetMapping
+    @GetMapping("/find")
     public R<PageInfo> login(UserInfoQueryDTO dto, QueryPage queryPage) {
         log.info("dto: {};queryPage: {}", dto, queryPage);
         PageHelper.startPage(queryPage.getPageNum(), queryPage.getPageSize());
